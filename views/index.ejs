@@ -12,19 +12,19 @@
 		<div class="row">
 			<table cellpadding="0px" cellspacing="0px">
 				<tr>
-					<td class="col-1"></td>
-					<td class="col-2"></td>
-					<td class="col-3"></td>
+					<td class="col-1" data-col="1"></td>
+					<td class="col-2" data-col="2"></td>
+					<td class="col-3" data-col="3"></td>
 				</tr>
 				<tr>
-					<td class="col-4"></td>
-					<td class="col-5"></td>
-					<td class="col-6"></td>
+					<td class="col-4" data-col="4"></td>
+					<td class="col-5" data-col="5"></td>
+					<td class="col-6" data-col="6"></td>
 				</tr>
 				<tr>
-					<td class="col-7"></td>
-					<td class="col-8"></td>
-					<td class="col-9"></td>
+					<td class="col-7" data-col="7"></td>
+					<td class="col-8" data-col="8"></td>
+					<td class="col-9" data-col="9"></td>
 				</tr>
 			</table>
 		</div>
@@ -33,7 +33,7 @@
 	<!-- Scripts -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 	<script>
-		let myPlayer = '<%= currentPlayer %>';
+		let roomId = '<%= roomId %>';
 	</script>
 	<script src="/assets/scripts/script.js"></script>
 </body>

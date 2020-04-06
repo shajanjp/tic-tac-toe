@@ -1,9 +1,11 @@
-let express = require('express');
-let app = express();
-let http = require('http').Server(app);
-let io = require('socket.io')(http);
+const express = require('express');
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 let PORT = process.env.PORT || 3000;
 let HOSTNAME = process.env.HOSTNAME || `http://localhost:${PORT}`;
+const gameController = require('./controllers/game.controller.js');
+global.gameStore = {};
 
 app.set('view engine', 'ejs');
 app.use('/assets', express.static('public/assets'))
@@ -12,21 +14,8 @@ app.get('/', (req, res) => {
   res.send('Hello');
 });
 
-app.get('/:roomId', (req, res) => {
-  res.render('index.ejs', {});
-});
-
-app.param('roomId', (req, res, next, roomId) => {
-  if(roomId.split('-').length == 2){
-    next()
-  }
-  else{
-    res.render('message.ejs', {
-      title: "Invalid Game URL",
-      description: "Please create a new game"
-    });
-  }
-})
+app.get('/:roomId', gameController.gamePage);
+app.param('roomId', gameController.roomById)
 
 io.on('connection', (client) => {
   console.log('client connected');

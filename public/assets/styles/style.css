@@ -1,0 +1,59 @@
+html, body {
+    background-color: #343434;
+    height: 100%;
+}
+body {
+    margin: 0;
+}
+.container {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+.row {
+    width: auto;
+}
+
+table{
+    width: 100%;
+}
+
+table td{
+    width: 100px;
+    height: 100px;
+    text-align: center;
+}
+
+table tr td:nth-child(1),
+table tr td:nth-child(2){
+    border-right: 2px solid #555;
+}
+
+table tr:nth-child(1) td,
+table tr:nth-child(2) td{
+    border-bottom: 2px solid #555;
+}
+
+table td{
+    padding: 10px;
+    background-size: 60px 60px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transition: background-image 0.5s ease;
+}
+
+table td.tic{
+    background-image: url('/assets/images/close.svg');
+}
+
+table td.tac{
+    background-image: url('/assets/images/circle.svg');
+}

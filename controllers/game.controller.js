@@ -1,20 +1,11 @@
 function gamePage(req, res){
-  global.gameStore[res.locals.roomId] = global.gameStore[res.locals.roomId] ? global.gameStore[res.locals.roomId] : { "players": {} };
-  let currentGame = global.gameStore[res.locals.roomId] 
-  
-  if(!currentGame.players.tic){
-    currentGame.players["tic"] = 'DUM';
-    res.render('index.ejs', {currentPlayer : "tic"});
-  }
-  else{
-    currentGame.players["tac"] = 'DAM';
-    res.render('index.ejs', {currentPlayer : "tac"});
-  }
+  res.render('index.ejs', {
+    roomId: res.locals.roomId
+  });
 }
 
 function roomById(req, res, next, roomId){
   if(roomId.split('-').length == 2){
-    res.locals.roomId = roomId;
     next();
   }
   else{
@@ -25,7 +16,25 @@ function roomById(req, res, next, roomId){
   }
 }
 
+function getRoomFreePlayer(roomId, playerSocket){
+  global.gameStore[roomId] = global.gameStore[roomId] ? global.gameStore[roomId] : { "players": {} };
+  let currentGame = global.gameStore[roomId];
+
+  if(!global.gameStore[roomId].players["tic"]){
+    global.gameStore[roomId].players["tic"] = playerSocket;
+    return 'tic';
+  }
+  else if (!global.gameStore[roomId].players["tac"]) {
+    global.gameStore[roomId].players["tac"] = playerSocket;
+    return 'tac';
+  }
+  else{
+    return '';
+  }
+}
+
 module.exports = {
   gamePage,
-  roomById
+  roomById,
+  getRoomFreePlayer
 }

@@ -21,7 +21,13 @@ io.on('connection', (client) => {
   console.log('client connected');
 
   client.on('PLAYER_MOVE', (data) => {
-    io.emit('PLAYER_MOVE', data);
+    io.emit(data.roomId, data);
+  })
+
+  client.on('GET_PLAYER', (data) => {
+    client.emit('GET_PLAYER', {
+      player: gameController.getRoomFreePlayer(data.roomId, client.id) 
+    });
   })
 
   client.on('disconnect', () => {

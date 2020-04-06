@@ -1,5 +1,5 @@
+const socket = io.connect('');
 const columns = document.getElementsByTagName('td');
-let mySign = 'tic';
 let isMyTurn = true;
 
 function replaceClass(element, value){
@@ -26,15 +26,14 @@ const columnClicked = function() {
   if(isMyTurn){    
     const currentSign = this.getAttribute("data-value");
     if(currentSign === null || currentSign === ""){
-      markColumn(this, mySign);
+      markColumn(this, myPlayer);
     }
-    else if(currentSign == mySign){
+    else if(currentSign == myPlayer){
       markColumn(this, '');
     }
   }
 };
 
 for(let i = 0; i < columns.length; i++) {
-  console.log('attaching');
   columns[i].addEventListener('click', columnClicked);
 }

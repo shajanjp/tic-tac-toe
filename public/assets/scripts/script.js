@@ -85,9 +85,9 @@ socket.on(roomId, (data) => {
   if(data.type == "MOVE"){
     markColumn(document.getElementsByClassName(`col-${data.move}`)[0], data.player)
   }
-  if(data.type == "PLAYER_JOINED" && socket.id === data.to){
+  if(data.type == "MESSAGE" && (socket.id === data.to || data.io === undefined)){
     addNotificaion({
-      title: 'Player Joined'
+      title: data.title
     })
   }
   if(data.type == "NEW_GAME"){

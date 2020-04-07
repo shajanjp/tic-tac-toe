@@ -31,6 +31,11 @@ io.on('connection', (client) => {
      io.emit(data.roomId, {
         type: "NEW_GAME"
       });
+
+     io.emit(data.roomId, {
+       type: 'MESSAGE',
+       title: 'New Game Started'
+     })
     }
   })
 
@@ -38,8 +43,9 @@ io.on('connection', (client) => {
     const availablePlayer = gameController.getRoomFreePlayer(data.roomId, client.id);
     if(availablePlayer){
       io.emit(data.roomId, {
-        to: gameController.getOpponentPlayer(data.roomId, client.id), 
-        type: 'PLAYER_JOINED'
+        type: 'MESSAGE',
+        title: 'Player Joined',
+        to: gameController.getOpponentPlayer(data.roomId, client.id)
       })
 
       client.emit('GET_PLAYER', {

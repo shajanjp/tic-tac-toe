@@ -29,14 +29,16 @@ function getRoomFreePlayer(roomId, playerSocket){
     global.gameStore[roomId].players["tac"] = playerSocket;
     return 'tac';
   }
-  else{
-    return '';
-  }
 }
 
 function removeFromGame(clientId){
   for(const roomId in global.gameStore){
-  // remove client from game
+    if(global.gameStore[roomId]["players"]["tic"] == clientId){
+      delete global.gameStore[roomId]["players"]["tic"];
+    }
+    if(global.gameStore[roomId]["players"]["tac"] == clientId){
+      delete global.gameStore[roomId]["players"]["tac"];
+    }
   }
 }
 

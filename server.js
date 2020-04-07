@@ -31,6 +31,7 @@ io.on('connection', (client) => {
   })
 
   client.on('disconnect', () => {
+    gameController.removeFromGame(client.id);
     console.log('disconnected');
   });
 })

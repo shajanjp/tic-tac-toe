@@ -33,8 +33,15 @@ function getRoomFreePlayer(roomId, playerSocket){
   }
 }
 
+function removeFromGame(clientId){
+  for(const roomId in global.gameStore){
+  // remove client from game
+  }
+}
+
 module.exports = {
   gamePage,
   roomById,
-  getRoomFreePlayer
+  getRoomFreePlayer,
+  removeFromGame
 }

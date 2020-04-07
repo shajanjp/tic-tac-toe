@@ -29,6 +29,14 @@ function getRoomFreePlayer(roomId, playerSocket){
     global.gameStore[roomId].players["tac"] = playerSocket;
     return 'tac';
   }
+  else{
+    return false;
+  }
+}
+
+function getOpponentPlayer(roomId, clientId){
+  let gamePlayers = global.gameStore[roomId]["players"];
+  return gamePlayers["tic"] == clientId ? gamePlayers["tac"] : gamePlayers["tic"];
 }
 
 function removeFromGame(clientId){
@@ -46,5 +54,6 @@ module.exports = {
   gamePage,
   roomById,
   getRoomFreePlayer,
-  removeFromGame
+  removeFromGame,
+  getOpponentPlayer
 }

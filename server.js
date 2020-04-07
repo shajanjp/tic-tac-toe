@@ -21,13 +21,24 @@ io.on('connection', (client) => {
   console.log('client connected');
 
   client.on('PLAYER_MOVE', (data) => {
-    io.emit(data.roomId, data);
+    io.emit(data.roomId, {
+      ...data, 
+      type: "MOVE"
+    });
   })
 
   client.on('GET_PLAYER', (data) => {
-    client.emit('GET_PLAYER', {
-      player: gameController.getRoomFreePlayer(data.roomId, client.id) 
-    });
+    const availablePlayer = gameController.getRoomFreePlayer(data.roomId, client.id);
+    if(availablePlayer){
+      io.emit(data.roomId, {
+        to: gameController.getOpponentPlayer(data.roomId, client.id), 
+        type: 'PLAYER_JOINED'
+      })
+
+      client.emit('GET_PLAYER', {
+        player: availablePlayer
+      });
+    }
   })
 
   client.on('disconnect', () => {

@@ -65,6 +65,13 @@ socket.on('GET_PLAYER', (playerData) => {
   myPlayer = playerData.player;
 })
 
-socket.on(roomId, (movement) => {
-  markColumn(document.getElementsByClassName(`col-${movement.move}`)[0], movement.player)
+socket.on(roomId, (data) => {
+  if(data.type == "MOVE"){
+    markColumn(document.getElementsByClassName(`col-${data.move}`)[0], data.player)
+  }
+  if(data.type == "PLAYER_JOINED" && socket.id === data.to){
+    addNotificaion({
+      title: 'Player Joined'
+    })
+  }
 })

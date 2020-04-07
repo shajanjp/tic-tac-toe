@@ -57,3 +57,21 @@ table td.tic{
 table td.tac{
     background-image: url('/assets/images/circle.svg');
 }
+
+.notifications-container{
+    padding: 20px;
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    height: 100%;
+    /*background-color: rgba(0,0,0,0.3);*/
+}
+
+.notification{
+    color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0.2);
+}

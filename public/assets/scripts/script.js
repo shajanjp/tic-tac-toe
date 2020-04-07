@@ -2,6 +2,7 @@ const socket = io.connect('');
 const columns = document.getElementsByTagName('td');
 let isMyTurn = true;
 let myPlayer = '';
+const notificationContainer = document.getElementsByClassName('notifications-container')[0];
 
 function replaceClass(element, value){
   if(value == "tic"){
@@ -41,6 +42,16 @@ const columnClicked = function() {
     // }
   }
 };
+
+function addNotificaion(data){
+  let newNotification = document.createElement("DIV");
+  newNotification.classList.add("notification");
+  newNotification.appendChild(document.createTextNode(data.title));
+  notificationContainer.appendChild(newNotification);
+  setTimeout(() => {
+    newNotification.remove();
+  }, 5000)
+}
 
 for(let i = 0; i < columns.length; i++) {
   columns[i].addEventListener('click', columnClicked);

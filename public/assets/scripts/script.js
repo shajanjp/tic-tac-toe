@@ -3,6 +3,7 @@ const columns = document.getElementsByTagName('td');
 let isMyTurn = true;
 let myPlayer = '';
 const notificationContainer = document.getElementsByClassName('notifications-container')[0];
+const newGameButton = document.getElementsByClassName('new-game')[0];
 
 function replaceClass(element, value){
   if(value == "tic"){
@@ -32,6 +33,7 @@ const columnClicked = function() {
       markColumn(this, myPlayer);
       socket.emit('PLAYER_MOVE', {
         roomId,
+        type: "MOVE",
         move: currentColumn,
         player: myPlayer 
       })
@@ -53,6 +55,20 @@ function addNotificaion(data){
   }, 5000)
 }
 
+function startNewGame(){
+  for(let i = 0; i < columns.length; i++) {
+    markColumn(columns[i], null);
+  }
+}
+
+newGameButton.addEventListener('click', () => {
+  startNewGame();
+  socket.emit('PLAYER_MOVE', {
+    type: 'NEW_GAME',
+    roomId
+  })
+});
+
 for(let i = 0; i < columns.length; i++) {
   columns[i].addEventListener('click', columnClicked);
 }
@@ -73,5 +89,8 @@ socket.on(roomId, (data) => {
     addNotificaion({
       title: 'Player Joined'
     })
+  }
+  if(data.type == "NEW_GAME"){
+    startNewGame();
   }
 })

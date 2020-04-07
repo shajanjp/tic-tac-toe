@@ -21,10 +21,17 @@ io.on('connection', (client) => {
   console.log('client connected');
 
   client.on('PLAYER_MOVE', (data) => {
-    io.emit(data.roomId, {
-      ...data, 
-      type: "MOVE"
-    });
+    if(data.type == "MOVE"){
+      io.emit(data.roomId, {
+        ...data, 
+        type: "MOVE"
+      });
+    }
+    if(data.type == "NEW_GAME"){
+     io.emit(data.roomId, {
+        type: "NEW_GAME"
+      });
+    }
   })
 
   client.on('GET_PLAYER', (data) => {

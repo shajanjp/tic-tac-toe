@@ -77,3 +77,23 @@ table td.tac{
     border-radius: 5px;
     background-color: rgba(0,0,0,0.2);
 }
+
+/* Actions */
+.actions{
+  display: block;
+  position: fixed;
+  bottom:15px;
+}
+
+.actions .item{
+    width:50px;
+    height: 50px; 
+    background-size: 30px 30px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.new-game{
+    background-image: url('/assets/images/console.svg');
+}

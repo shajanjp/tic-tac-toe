@@ -6,6 +6,7 @@ function gamePage(req, res){
 
 function roomById(req, res, next, roomId){
   if(roomId.split('-').length == 2){
+    res.locals.roomId = roomId;
     next();
   }
   else{

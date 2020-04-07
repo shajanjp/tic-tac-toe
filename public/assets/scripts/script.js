@@ -21,7 +21,12 @@ function replaceClass(element, value){
 }
 
 function markColumn(element, value){
-  element.setAttribute("data-value", value);
+  if(value){
+    element.setAttribute("data-value", value);
+  }
+  else{
+    element.removeAttribute("data-value");
+  }
   replaceClass(element, value);
 }
 

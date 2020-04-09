@@ -18,7 +18,7 @@ function roomById(req, res, next, roomId){
 }
 
 function getRoomFreePlayer(roomId, playerSocket){
-  global.gameStore[roomId] = global.gameStore[roomId] ? global.gameStore[roomId] : { "players": {} };
+  global.gameStore[roomId] = global.gameStore[roomId] ? global.gameStore[roomId] : { "players": {}, moves: new Array(9).fill(null) };
   let currentGame = global.gameStore[roomId];
 
   if(!global.gameStore[roomId].players["tic"]){

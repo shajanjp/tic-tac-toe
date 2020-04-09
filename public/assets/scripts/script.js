@@ -88,12 +88,12 @@ socket.on('GET_PLAYER', (playerData) => {
 
 socket.on(roomId, (data) => {
   if(data.type == "MOVE"){
-    markColumn(document.getElementsByClassName(`col-${data.move}`)[0], data.player)
+    markColumn(document.getElementsByClassName(`col-${data.move}`)[0], data.player);
   }
   if(data.type == "MESSAGE" && (socket.id === data.to || data.io === undefined)){
     addNotificaion({
       title: data.title
-    })
+    });
   }
   if(data.type == "NEW_GAME"){
     startNewGame();

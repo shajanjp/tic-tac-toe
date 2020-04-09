@@ -1,6 +1,6 @@
 const gameController = require('./game.controller');
 
-function playerMove(data){
+function playerMove(data, client, io){
   if(data.type == "MOVE"){
     io.emit(data.roomId, {
       ...data, 
@@ -19,7 +19,7 @@ function playerMove(data){
   }
 }
 
-function getPlayer(data){
+function getPlayer(data, client, io){
   const availablePlayer = gameController.getRoomFreePlayer(data.roomId, client.id);
   if(availablePlayer){
     io.emit(data.roomId, {
@@ -38,8 +38,13 @@ function handleConnecion(io){
   io.on('connection', (client) => {
     console.log('client connected');
 
-    client.on('PLAYER_MOVE', playerMove);
-    client.on('GET_PLAYER', getPlayer);
+    client.on('PLAYER_MOVE', (data) => {
+      playerMove(data, client, io);
+    });
+
+    client.on('GET_PLAYER', (data) => {
+      getPlayer(data, client, io);
+    });
 
     client.on('disconnect', () => {
       gameController.removeFromGame(client.id);

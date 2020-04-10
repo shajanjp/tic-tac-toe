@@ -14,7 +14,7 @@ function roomById(req, res, next, roomId){
   else{
     res.render('message.ejs', {
       title: "Invalid Game URL",
-      description: "Please create a new game"
+      description: "Please create a <a href='/'>new game.</a>"
     });
   }
 }

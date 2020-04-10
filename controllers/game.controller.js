@@ -18,20 +18,29 @@ function roomById(req, res, next, roomId){
 }
 
 function getRoomFreePlayer(roomId, playerSocket){
+  const playersStatus = {}
+  playersStatus.isBothJoined = false;
+
   global.gameStore[roomId] = global.gameStore[roomId] ? global.gameStore[roomId] : { "players": {}, moves: new Array(9).fill(null) };
   let currentGame = global.gameStore[roomId];
-
+  
   if(!global.gameStore[roomId].players["tic"]){
     global.gameStore[roomId].players["tic"] = playerSocket;
-    return 'tic';
+    playersStatus.player = 'tic';
   }
   else if (!global.gameStore[roomId].players["tac"]) {
     global.gameStore[roomId].players["tac"] = playerSocket;
-    return 'tac';
+    playersStatus.player = 'tac';
   }
   else{
-    return false;
+    playersStatus.player = false;
   }
+
+  if(global.gameStore[roomId].players["tic"] && global.gameStore[roomId].players["tic"]){
+    playersStatus.isBothJoined = true; 
+  }
+
+  return playersStatus;
 }
 
 function getOpponentPlayer(roomId, clientId){

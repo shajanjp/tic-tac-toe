@@ -1,7 +1,7 @@
 let gameEngine = require('../libs/game-logic.js');
 
 function gamePage(req, res){
-  res.render('index.ejs', {
+  res.render('game.ejs', {
     roomId: res.locals.roomId
   });
 }
@@ -17,6 +17,10 @@ function roomById(req, res, next, roomId){
       description: "Please create a <a href='/'>new game.</a>"
     });
   }
+}
+
+function createGamePage(req, res){
+  res.render('create-game.ejs');
 }
 
 function getRoomFreePlayer(roomId, clientId){
@@ -85,12 +89,13 @@ function logWin(roomId, clientId){
 
 
 module.exports = {
+  calcMove,
+  createGamePage,
   gamePage,
-  roomById,
-  getRoomFreePlayer,
-  removeFromGame,
   getOpponentPlayer,
   getPlayer,
-  calcMove,
-  newGame
+  getRoomFreePlayer,
+  newGame,
+  removeFromGame,
+  roomById,
 }

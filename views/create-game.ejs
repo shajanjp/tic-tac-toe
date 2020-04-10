@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Tic Tac Toe</title>
+  <link rel="stylesheet" href="/assets/styles/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="create-game-container">
+       <h1>Create new game</h1>
+
+       <div class="form-input">
+        <label for="">Your name</label>
+        <input type="text" name="playerOneName" id="playerOneName" placeholder="John">
+      </div>
+
+      <div class="form-input">
+        <label for="">Your opponent name</label>
+        <input type="text" name="playerTwoName" id="playerTwoName" placeholder="Peter">
+      </div>
+      
+      <button id="create-game">Create Game</button>
+    </div>
+  </div>
+</div>
+<script>
+  let createGameButton = document.getElementById('create-game');
+  let playerOneInput = document.getElementById('playerOneName');
+  let playerTwoInput = document.getElementById('playerTwoName');
+
+  createGameButton.onclick = (e) => {
+    let playerOneName = playerOneInput.value.replace(' ', '').replace('-', '');
+    let playerTwoName = playerTwoInput.value.replace(' ', '').replace('-', '');
+    window.location.href = `/${playerOneName}-${playerTwoName}`;
+  } 
+</script>
+</body>
+</html>

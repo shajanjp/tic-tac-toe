@@ -12,10 +12,7 @@ global.gameStore = {};
 app.set('view engine', 'ejs');
 app.use('/assets', express.static('public/assets'))
 
-app.get('/', (req, res) => {
-  res.send('Hello');
-});
-
+app.get('/', gameController.createGamePage);
 app.get('/:roomId', gameController.gamePage);
 app.param('roomId', gameController.roomById);
 

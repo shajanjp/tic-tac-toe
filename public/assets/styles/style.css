@@ -119,7 +119,6 @@ table td.tac{
     background-image: url('/assets/images/console.svg');
 }
 
-
 .player-indicator{
     position: fixed;
     bottom: 0px;
@@ -129,11 +128,11 @@ table td.tac{
 }
 
 body.tic .player-indicator{
-    background-image: linear-gradient(to right, #222, #222, #07689f, #222, #222);
+    background-image: linear-gradient(to right, #222, #07689f, #222);
 }
 
 body.tac .player-indicator{
-    background-image: linear-gradient(to right, #222, #222, #ff7e67, #222, #222);
+    background-image: linear-gradient(to right, #222, #ff7e67, #222);
 }
 
 .message-container{
@@ -145,3 +144,30 @@ body.tac .player-indicator{
     text-decoration: none;
     color: #07689f;
 }
+
+.create-game-container{
+    color: #DDD;
+}
+
+.create-game-container label, 
+.create-game-container input{
+    display: block;
+    width: 100%;
+}
+
+.create-game-container .form-input{
+    margin-top: 15px;
+}
+
+.create-game-container .form-input input{
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid #333;
+    padding: 10px;
+    color: #ddd;
+    margin-top: 5px;
+}
+.create-game-container button{
+    margin-top: 15px;
+}
+

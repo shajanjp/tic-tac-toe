@@ -6,6 +6,14 @@ html, body {
 body {
     margin: 0;
 }
+ /* The animation code */
+@keyframes turnBreatheTic {
+  50% {border-color: #07689f;}
+}
+@keyframes turnBreatheTac {
+  50% {border-color: #ff7e67;}
+}
+
 .container {
     height: 100%;
     padding: 0;
@@ -32,6 +40,19 @@ table td{
     height: 100px;
     text-align: center;
     cursor: pointer;
+}
+
+table.turn td{
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+}
+
+body.tic table.turn td{
+    animation-name: turnBreatheTic;
+}
+
+body.tac table.turn td{
+    animation-name: turnBreatheTac;
 }
 
 table tr td:nth-child(1),

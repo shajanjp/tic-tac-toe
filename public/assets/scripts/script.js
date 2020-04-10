@@ -1,16 +1,18 @@
 const socket = io.connect('');
 const columns = document.getElementsByTagName('td');
+const gameBoard = document.getElementById('game-board');
+const mainBody = document.getElementsByTagName("BODY")[0]; 
 let isMyTurn = false;
 let myPlayer = '';
 const notificationContainer = document.getElementsByClassName('notifications-container')[0];
 const newGameButton = document.getElementsByClassName('new-game')[0];
 
-function replaceClass(element, value){
-  if(value == "tic"){
+function replaceClass(element, className){
+  if(className == "tic"){
     element.classList.remove("tac");
     element.classList.add("tic");
   }
-  else if(value == "tac"){
+  else if(className == "tac"){
     element.classList.remove("tic");
     element.classList.add("tac");  
   }
@@ -18,6 +20,14 @@ function replaceClass(element, value){
     element.classList.remove("tac");
     element.classList.remove("tic");
   }
+}
+
+function addClass(element, className){
+  element.classList.add(className);
+}
+
+function removeClass(element, className){
+  element.classList.remove(className);
 }
 
 function markColumn(element, value){
@@ -84,6 +94,7 @@ socket.on('connect', () => {
 
 socket.on('GET_PLAYER', (playerData) => {
   myPlayer = playerData.player;
+  replaceClass(mainBody, myPlayer);
 })
 
 socket.on(roomId, (data) => {
@@ -104,9 +115,11 @@ socket.on(roomId, (data) => {
   if(data.type == "TURN"){
     if(data.player == socket.id){
       isMyTurn = true;
+      addClass(gameBoard, "turn")
     }
     else {
       isMyTurn = false;
+      removeClass(gameBoard, "turn")
     }
   }
 })

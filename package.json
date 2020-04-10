@@ -1,6 +1,6 @@
 {
   "name": "tic-tac-toe",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Tic Tac Toe realtime multiplayer game.",
   "main": "server.js",
   "scripts": {

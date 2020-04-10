@@ -1,3 +1,5 @@
+let gameEngine = require('../libs/game-logic.js');
+
 function gamePage(req, res){
   res.render('index.ejs', {
     roomId: res.locals.roomId
@@ -59,10 +61,29 @@ function removeFromGame(clientId){
   }
 }
 
+function getPlayer(roomId, clientId){
+  let gamePlayers = global.gameStore[roomId]["players"];
+  return gamePlayers["tic"] == clientId ? gamePlayers["tic"] : gamePlayers["tac"];
+}
+
+function calcMove(roomId, clientId, move){
+  const currentGame = global.gameStore[roomId];
+  currentGame.moves[move - 1] = getPlayer(roomId, clientId);
+  const gameStatus = gameEngine.checkIfWon(currentGame.moves, getPlayer(roomId, clientId));
+  return gameStatus;
+}
+
+function newGame(roomId){
+  const currentGame = global.gameStore[roomId];
+  currentGame.moves = new Array(9).fill(null);
+}
+
 module.exports = {
   gamePage,
   roomById,
   getRoomFreePlayer,
   removeFromGame,
-  getOpponentPlayer
+  getOpponentPlayer,
+  calcMove,
+  newGame
 }

@@ -6,14 +6,34 @@ function playerMove(data, client, io){
       ...data, 
       type: "MOVE"
     });
+
+    let gameStatus = gameController.calcMove(data.roomId, client.id, data.move);
     
-    io.emit(data.roomId, {
-      type: "TURN",
-      player: gameController.getOpponentPlayer(data.roomId, client.id)
-    })
+    if(gameStatus.isWin){
+      io.emit(data.roomId, {
+        type: 'MESSAGE',
+        to: client.id,
+        title: 'You won !'
+      })
+    }
+    else if(gameStatus.isGameOver){
+      io.emit(data.roomId, {
+        type: 'MESSAGE',
+        to: "all",
+        title: 'Game Over'
+      })
+    }
+    else{
+      io.emit(data.roomId, {
+        type: "TURN",
+        player: gameController.getOpponentPlayer(data.roomId, client.id)
+      })
+    }
   }
 
   if(data.type == "NEW_GAME"){
+    gameController.newGame(data.roomId);
+
     io.emit(data.roomId, {
       type: "NEW_GAME"
     });
@@ -40,10 +60,17 @@ function getPlayer(data, client, io){
     });
 
     if(availablePlayer.isBothJoined){
+      gameController.newGame(data.roomId);
+
+      io.emit(data.roomId, {
+        type: "NEW_GAME"
+      });
+
       io.emit(data.roomId, {
         type: 'TURN',
         player: client.id
       });
+
 
       io.emit(data.roomId, {
         type: 'MESSAGE',

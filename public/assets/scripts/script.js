@@ -82,6 +82,8 @@ newGameButton.addEventListener('click', () => {
     type: 'NEW_GAME',
     roomId
   })
+  isMyTurn = false;
+  removeClass(gameBoard, "turn");
 });
 
 for(let i = 0; i < columns.length; i++) {
@@ -119,7 +121,7 @@ socket.on(roomId, (data) => {
     }
     else {
       isMyTurn = false;
-      removeClass(gameBoard, "turn")
+      removeClass(gameBoard, "turn");
     }
   }
 })

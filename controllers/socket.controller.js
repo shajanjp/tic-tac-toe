@@ -10,7 +10,7 @@ function playerMove(data, client, io){
     let gameStatus = gameController.calcMove(data.roomId, client.id, data.move);
     
     if(gameStatus.isWin){
-      gameController.logWin(data.roomId, client.id);
+      // gameController.logWin(data.roomId, client.id);
       io.emit(data.roomId, {
         type: 'MESSAGE',
         to: client.id,
@@ -81,11 +81,17 @@ function getPlayer(data, client, io){
         player: client.id
       });
 
-
       io.emit(data.roomId, {
         type: 'MESSAGE',
         to: client.id,
         title: "You can start the game."
+      });
+    }
+    else {
+      io.emit(data.roomId, {
+        type: 'MESSAGE',
+        to: client.id,
+        title: "Please share this page with your opponent."
       });
     }
   }

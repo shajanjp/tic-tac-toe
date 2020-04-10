@@ -1,4 +1,5 @@
 const gameController = require('./game.controller');
+let socketClientCounter = 0;
 
 function playerMove(data, client, io){
   if(data.type == "MOVE"){
@@ -99,7 +100,8 @@ function getPlayer(data, client, io){
 
 function handleConnecion(io){
   io.on('connection', (client) => {
-    console.log('client connected');
+    socketClientCounter++;
+    console.log('client connected. Total clients: ', socketClientCounter);
 
     client.on('PLAYER_MOVE', (data) => {
       playerMove(data, client, io);
@@ -110,8 +112,9 @@ function handleConnecion(io){
     });
 
     client.on('disconnect', () => {
+      socketClientCounter--;
       gameController.removeFromGame(client.id);
-      console.log('disconnected');
+      console.log('client donnected. Total clients: ', socketClientCounter);
     });
   })
 }

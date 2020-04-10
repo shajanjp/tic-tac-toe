@@ -10,11 +10,17 @@ function playerMove(data, client, io){
     let gameStatus = gameController.calcMove(data.roomId, client.id, data.move);
     
     if(gameStatus.isWin){
+      gameController.logWin(data.roomId, client.id);
       io.emit(data.roomId, {
         type: 'MESSAGE',
         to: client.id,
         title: 'You won !'
-      })
+      });
+      io.emit(data.roomId, {
+        type: 'MESSAGE',
+        to: gameController.getOpponentPlayer(data.roomId, client.id),
+        title: 'Your opponent won the game.'
+      });
     }
     else if(gameStatus.isGameOver){
       io.emit(data.roomId, {

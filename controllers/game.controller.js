@@ -19,19 +19,19 @@ function roomById(req, res, next, roomId){
   }
 }
 
-function getRoomFreePlayer(roomId, playerSocket){
+function getRoomFreePlayer(roomId, clientId){
   const playersStatus = {}
   playersStatus.isBothJoined = false;
 
-  global.gameStore[roomId] = global.gameStore[roomId] ? global.gameStore[roomId] : { "players": {}, moves: new Array(9).fill(null) };
+  global.gameStore[roomId] = global.gameStore[roomId] ? global.gameStore[roomId] : { "players": {}, score: {}, moves: new Array(9).fill(null) };
   let currentGame = global.gameStore[roomId];
   
   if(!currentGame.players["tic"]){
-    currentGame.players["tic"] = playerSocket;
+    currentGame.players["tic"] = clientId;
     playersStatus.player = 'tic';
   }
   else if (!currentGame.players["tac"]) {
-    currentGame.players["tac"] = playerSocket;
+    currentGame.players["tac"] = clientId;
     playersStatus.player = 'tac';
   }
   else{
@@ -77,6 +77,12 @@ function newGame(roomId){
   const currentGame = global.gameStore[roomId];
   currentGame.moves = new Array(9).fill(null);
 }
+
+
+function logWin(roomId, clientId){
+
+}
+
 
 module.exports = {
   gamePage,

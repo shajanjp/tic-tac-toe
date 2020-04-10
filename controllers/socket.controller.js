@@ -6,7 +6,13 @@ function playerMove(data, client, io){
       ...data, 
       type: "MOVE"
     });
+    
+    io.emit(data.roomId, {
+      type: "TURN",
+      player: gameController.getOpponentPlayer(data.roomId, client.id)
+    })
   }
+
   if(data.type == "NEW_GAME"){
     io.emit(data.roomId, {
       type: "NEW_GAME"
@@ -21,7 +27,7 @@ function playerMove(data, client, io){
 
 function getPlayer(data, client, io){
   const availablePlayer = gameController.getRoomFreePlayer(data.roomId, client.id);
-  if(availablePlayer){
+  if(availablePlayer.player){
     io.emit(data.roomId, {
       type: 'MESSAGE',
       title: 'Player Joined',
@@ -29,8 +35,21 @@ function getPlayer(data, client, io){
     })
 
     client.emit('GET_PLAYER', {
-      player: availablePlayer
+      player: availablePlayer.player
     });
+
+    if(availablePlayer.isBothJoined){
+      io.emit(data.roomId, {
+        type: 'TURN',
+        player: client.id
+      });
+
+      io.emit(data.roomId, {
+        type: 'MESSAGE',
+        to: client.id,
+        title: "You can start the game."
+      });
+    }
   }
 }
 

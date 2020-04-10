@@ -1,6 +1,6 @@
 const socket = io.connect('');
 const columns = document.getElementsByTagName('td');
-let isMyTurn = true;
+let isMyTurn = false;
 let myPlayer = '';
 const notificationContainer = document.getElementsByClassName('notifications-container')[0];
 const newGameButton = document.getElementsByClassName('new-game')[0];
@@ -90,12 +90,23 @@ socket.on(roomId, (data) => {
   if(data.type == "MOVE"){
     markColumn(document.getElementsByClassName(`col-${data.move}`)[0], data.player);
   }
-  if(data.type == "MESSAGE" && (socket.id === data.to || data.io === undefined)){
+
+  if(data.type == "MESSAGE" && (socket.id === data.to || data.io === 'all')){
     addNotificaion({
       title: data.title
     });
   }
+
   if(data.type == "NEW_GAME"){
     startNewGame();
+  }
+
+  if(data.type == "TURN"){
+    if(data.player == socket.id){
+      isMyTurn = true;
+    }
+    else {
+      isMyTurn = false;
+    }
   }
 })

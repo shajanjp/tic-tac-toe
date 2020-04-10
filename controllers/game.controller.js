@@ -24,19 +24,19 @@ function getRoomFreePlayer(roomId, playerSocket){
   global.gameStore[roomId] = global.gameStore[roomId] ? global.gameStore[roomId] : { "players": {}, moves: new Array(9).fill(null) };
   let currentGame = global.gameStore[roomId];
   
-  if(!global.gameStore[roomId].players["tic"]){
-    global.gameStore[roomId].players["tic"] = playerSocket;
+  if(!currentGame.players["tic"]){
+    currentGame.players["tic"] = playerSocket;
     playersStatus.player = 'tic';
   }
-  else if (!global.gameStore[roomId].players["tac"]) {
-    global.gameStore[roomId].players["tac"] = playerSocket;
+  else if (!currentGame.players["tac"]) {
+    currentGame.players["tac"] = playerSocket;
     playersStatus.player = 'tac';
   }
   else{
     playersStatus.player = false;
   }
 
-  if(global.gameStore[roomId].players["tic"] && global.gameStore[roomId].players["tic"]){
+  if(currentGame.players["tic"] && currentGame.players["tac"]){
     playersStatus.isBothJoined = true; 
   }
 

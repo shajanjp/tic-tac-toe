@@ -20,6 +20,7 @@ function playerMove(data, client, io){
 
     io.emit(data.roomId, {
       type: 'MESSAGE',
+      to: "all",
       title: 'New Game Started'
     })
   }

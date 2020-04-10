@@ -102,7 +102,7 @@ socket.on(roomId, (data) => {
     markColumn(document.getElementsByClassName(`col-${data.move}`)[0], data.player);
   }
 
-  if(data.type == "MESSAGE" && (socket.id === data.to || data.io === 'all')){
+  if(data.type == "MESSAGE" && (socket.id === data.to || data.to === 'all')){
     addNotificaion({
       title: data.title
     });

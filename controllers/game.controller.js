@@ -84,6 +84,7 @@ module.exports = {
   getRoomFreePlayer,
   removeFromGame,
   getOpponentPlayer,
+  getPlayer,
   calcMove,
   newGame
 }

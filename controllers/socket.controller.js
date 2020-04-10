@@ -32,6 +32,10 @@ function playerMove(data, client, io){
   }
 
   if(data.type == "NEW_GAME"){
+    io.emit(data.roomId, {
+      type: "TURN",
+      player: gameController.getPlayer(data.roomId, client.id)
+    })
     gameController.newGame(data.roomId);
 
     io.emit(data.roomId, {

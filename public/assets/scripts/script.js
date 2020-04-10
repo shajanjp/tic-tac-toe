@@ -53,10 +53,8 @@ const columnClicked = function() {
         player: myPlayer 
       })
     }
-    // This can be used as undo
-    // else if(currentSign == myPlayer){
-    //   markColumn(this, '');
-    // }
+    isMyTurn = false;
+    removeClass(gameBoard, "turn");
   }
 };
 
@@ -82,8 +80,6 @@ newGameButton.addEventListener('click', () => {
     type: 'NEW_GAME',
     roomId
   })
-  isMyTurn = false;
-  removeClass(gameBoard, "turn");
 });
 
 for(let i = 0; i < columns.length; i++) {

@@ -1,5 +1,6 @@
-html, body {
-    font-family: 'Roboto', sans-serif;
+ @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+ html, body {
+    font-family: 'Raleway', sans-serif;
     background-color: #222;
     height: 100%;
 }
@@ -167,7 +168,24 @@ body.tac .player-indicator{
     color: #ddd;
     margin-top: 5px;
 }
+
 .create-game-container button{
     margin-top: 15px;
 }
 
+
+.text-blue{ 
+    color: #07689f;
+}
+
+.text-orange{ 
+    color: #ff7e67;
+}
+
+#playerOneName{
+    border-left-color: #07689f;
+}
+
+#playerTwoName{
+    border-left-color: #ff7e67;
+}

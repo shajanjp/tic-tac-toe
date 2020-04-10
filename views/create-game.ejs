@@ -2,16 +2,17 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-  <meta name="theme-color" content="#111">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>Tic Tac Toe</title>
+  <%- include('./partials/meta-header.ejs') %>
+  <title>Tic Tac Toe</title>
   <link rel="stylesheet" href="/assets/styles/style.css">
 </head>
 <body>
   <div class="container">
     <div class="row">
       <div class="create-game-container">
-       <h1>Create new game</h1>
+
+       <h1><span class="text-blue">Tic</span> <span class="text-orange">Tac</span> <span class="text-blue">Toe</span></h1>
+       <h3>Create new game</h3>
 
        <div class="form-input">
         <label for="">Your name</label>
@@ -35,7 +36,9 @@
   createGameButton.onclick = (e) => {
     let playerOneName = playerOneInput.value.replace(' ', '').replace('-', '');
     let playerTwoName = playerTwoInput.value.replace(' ', '').replace('-', '');
-    window.location.href = `/${playerOneName}-${playerTwoName}`;
+    if(playerOneName !== '' && playerTwoName !== '' ){
+      window.location.href = `/${playerOneName}-${playerTwoName}`;
+    }
   } 
 </script>
 </body>

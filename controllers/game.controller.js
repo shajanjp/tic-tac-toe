@@ -56,11 +56,19 @@ function getOpponentPlayer(roomId, clientId){
 
 function removeFromGame(clientId){
   for(const roomId in global.gameStore){
-    if(global.gameStore[roomId]["players"]["tic"] == clientId){
-      delete global.gameStore[roomId]["players"]["tic"];
+    const currentRoom = global.gameStore[roomId];
+
+    if(currentRoom["players"]["tic"] == clientId){
+      delete currentRoom["players"]["tic"];
     }
-    if(global.gameStore[roomId]["players"]["tac"] == clientId){
-      delete global.gameStore[roomId]["players"]["tac"];
+
+    if(currentRoom["players"]["tac"] == clientId){
+      delete currentRoom["players"]["tac"];
+    }
+
+    if(currentRoom["players"]["tic"] === undefined && currentRoom["players"]["tac"] === undefined){
+      console.log('removing room: ', roomId);
+      delete currentRoom;
     }
   }
 }
@@ -82,9 +90,19 @@ function newGame(roomId){
   currentGame.moves = new Array(9).fill(null);
 }
 
+function getPlayerNick(roomId, clientId){
+  const currentGame = global.gameStore[roomId];
+  if(currentGame["tic"] === clientId){
+    return 'tic';
+  }
+  if(currentGame["tac"] === clientId){
+    return 'tac';
+  }
+
+}
 
 function logWin(roomId, clientId){
-
+  const currentGame = global.gameStore[roomId];
 }
 
 

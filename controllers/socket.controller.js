@@ -95,6 +95,8 @@ function getPlayer(data, client, io){
         title: "Please share this page with your opponent."
       });
     }
+
+    console.log('player joined room: ',data.roomId);
   }
 }
 
@@ -114,7 +116,7 @@ function handleConnecion(io){
     client.on('disconnect', () => {
       socketClientCounter--;
       gameController.removeFromGame(client.id);
-      console.log('client donnected. Total clients: ', socketClientCounter);
+      console.log('client disconnected. Total clients: ', socketClientCounter);
     });
   })
 }
